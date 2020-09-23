@@ -15,7 +15,10 @@ export const connect = (uri: string) =>
 
     // Otherwise, let's connect using the given url
     // We get err & db passed into the callback
-    client = new MongoClient(uri, { useNewUrlParser: true });
+    client = new MongoClient(uri, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
     client.connect((err: MongoError) => {
       // If there was an error connecting return it
       if (err) {

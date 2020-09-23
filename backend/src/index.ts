@@ -9,9 +9,9 @@ import * as db from './db';
 import terms from './routes/api/terms';
 
 // Configure the environment accordingly
-dotenv.config();
+dotenv.config({path: path.join(__dirname, '..', '.env')});
 
-const uri = process.env.MONGODB_URL as string;
+const uri = process.env.MONGODB_URI as string;
 // Initialize app with express, has a bunch of properties
 const app = express();
 // Look for environment variable in system before 3000
