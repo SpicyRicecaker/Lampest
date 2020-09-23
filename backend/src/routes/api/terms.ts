@@ -1,7 +1,7 @@
 import express from 'express';
 import { Collection } from 'mongodb';
 
-import * as langpestDB from '../../../dist/db.js';
+import * as langpestDB from '../../db';
 
 interface termType {
   content: string;

@@ -3,8 +3,8 @@ import express from 'express';
 // Assert basically test a statement if true or false,
 // if false throws error and quits program
 import path from 'path';
-import * as db from '../dist/db.js';
-import terms from '../dist/routes/api/terms.js';
+import * as db from './db';
+import terms from './routes/api/terms';
 
 const uri =
   'mongodb+srv://spicyricecaker:manguwu~@cluster0.lvrd8.mongodb.net/langpestDB?retryWrites=true&w=majority';

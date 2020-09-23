@@ -5,7 +5,7 @@
     "watch-ts": "tsc -w",
     "watch-node": "nodemon dist/index.js",
     "dev": "concurrently \"yarn:watch-*\"",
-    "build": "tsc -p ."
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/express": "^4.17.8",
