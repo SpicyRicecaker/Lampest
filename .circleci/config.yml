@@ -2,30 +2,25 @@ version: 2.1
 
 orbs:
   heroku: circleci/heroku@1.2.2 # Invoke the Heroku orb
-  node: circleci/node@4.0.0
+  # node: circleci/node@4.0.0
 
 workflows:
   heroku_deploy:
     jobs:
-      - build
-      # - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
-      #     requires:
-      #       - build
-jobs:
-  build:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      # Bundle install dependencies
-      - node/install:
-          install-yarn: true
-      # Database setup
-      - run: yarn install
-      - run: yarn build
-      - heroku/install
-      - run: git add .
-      - run: git config user.email "awesomenessisgolden@gmail.com"
-      - run: git config user.name "SpicyRicecaker"
-      - run: git commit -m "b"
-      - run: git push heroku master
+      # - build
+      - heroku/deploy-via-git # Use the pre-configured job, deploy-via-git
+        # requires:
+        #   - build
+# jobs:
+# build:
+# docker:
+# - image: cimg/base:stable
+# steps:
+# - checkout
+# Bundle install dependencies
+# - node/install:
+#     install-yarn: true
+# Run tests here later
+# - run: yarn install
+# - run: yarn build
+# - run: yarn test
