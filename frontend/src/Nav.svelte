@@ -1,8 +1,5 @@
 <script lang="ts">
   import { view } from './stores';
-
-  const links = [{ label: 'Add Terms' }];
-
   export let visible = false;
 </script>
 
@@ -30,11 +27,12 @@
     border-radius: 0;
     &:hover {
       color: $munchingOrange;
-      background: #5b5b5b;
+      background: #fbfbfb;
       cursor: pointer;
     }
     &:active {
-      background: none;
+      background: $munchingOrange;
+      color: white;
     }
   }
 
@@ -54,6 +52,7 @@
     flex-direction: column;
     position: absolute;
     width: 100%;
+    box-shadow: 0rem 5rem 5rem 0.2rem lightgray;
   }
 
   .center {
@@ -91,7 +90,7 @@
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p> -->
   <nav>
     <span class="left">
-      <h1><a href="/">Langpest</a></h1></span>
+      <h1><a href="/">Lampest</a></h1></span>
     <span class="center" />
     <span class="right"><button
         on:click={() => {
