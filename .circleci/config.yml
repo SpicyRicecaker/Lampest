@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   heroku: circleci/heroku@1.2.2 # Invoke the Heroku orb
+  node: circleci/node@4.0.0
 
 workflows:
   heroku_deploy:
@@ -13,10 +14,11 @@ workflows:
 jobs:
   build:
     docker:
-      - image: cimg/node
+      - image: cimg/base:stable
     steps:
       - checkout
       # Bundle install dependencies
-      - run: npm install
+      - node/install:
+          install-yarn: true
       # Database setup
-      - run: npm build
+      - run: yarn run build
