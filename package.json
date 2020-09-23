@@ -4,10 +4,9 @@
     "frontend",
     "backend"
   ],
-  "main": "backend/dist/index.js",
+  "main": "backend/dist/src/index.js",
   "scripts": {
     "start": "node backend/dist/index.js",
-    "build": "yarn --cwd backend build && yarn --cwd frontend build",
-    "postinstall": "yarn run build"
+    "build": "yarn --cwd backend build && yarn --cwd frontend build"
   }
 }
