@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  heroku: circleci/heroku # Invoke the Heroku orb
+  heroku: circleci/heroku@latest # Invoke the Heroku orb
 
 workflows:
   heroku_deploy:
