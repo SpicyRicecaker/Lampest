@@ -23,4 +23,6 @@ jobs:
       # Database setup
       - run: yarn install
       - run: yarn build
-      - run: git push heroku master
+      - run: git add .
+      - run: git commit -m "b"
+      - heroku/deploy-via-git
