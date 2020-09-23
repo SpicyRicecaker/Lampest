@@ -7,7 +7,6 @@
   "main": "backend/dist/src/index.js",
   "scripts": {
     "start": "node backend/dist/index.js",
-    "build": "yarn --cwd backend build && yarn --cwd frontend build",
-    "heroku-postbuild": "yarn build"
+    "build": "yarn --cwd backend build && yarn --cwd frontend build"
   }
 }

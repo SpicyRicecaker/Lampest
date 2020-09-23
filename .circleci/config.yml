@@ -23,6 +23,9 @@ jobs:
       # Database setup
       - run: yarn install
       - run: yarn build
+      - heroku/install
       - run: git add .
+      - run: git config user.email "awesomenessisgolden@gmail.com"
+      - run: git config user.name "SpicyRicecaker"
       - run: git commit -m "b"
-      - heroku/deploy-via-git
+      - run: git push heroku master
