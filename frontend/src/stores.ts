@@ -1,3 +1,3 @@
 import { writable } from 'svelte/store';
 
-export const view = writable('add-terms');
+export const view = writable('query-terms');

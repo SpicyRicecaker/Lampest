@@ -98,6 +98,7 @@
     border: 0.1rem solid gainsboro;
     padding: 1rem;
     border-radius: 2rem;
+    transition: 0.2s;
     /* border: .1rem solid gray; */
     /* border: 2px inset; */
     &:focus {
@@ -108,23 +109,25 @@
   }
 
   button {
+    background-color: white;
     padding: 1rem;
     border-radius: 2rem;
     outline: none;
     border: 0.1rem solid gainsboro;
     // background-color: white;
+    transition: 1s;
     &:hover {
-      background-color: #fbfbfb;
       cursor: pointer;
       color: $munchingOrange;
     }
     &:active {
-      background-color: $munchingOrange;
-      color: black;
+      transition: 0s;
+      background: $munchingOrange;
+      color: white;
       border: 0.1rem solid transparent;
     }
   }
-  
+
   .response {
     outline: none;
     padding: 1rem;
@@ -132,7 +135,7 @@
     /* border: .1rem solid gray; */
     /* border: 2px inset; */
   }
-  
+
   .status {
     font-weight: bold;
   }
@@ -173,8 +176,11 @@ u}
   <input type="text" placeholder="Example" bind:value={tempTerm.example} />
   <button on:click={createTerm}>Add</button>
   {#if fetchRes.status !== 99}
-    <div class="response" style="background-color:{colorbaseres.get(fetchRes.status)};">
-      <span class="status">Code {fetchRes.status}</span> {fetchRes.msg}
+    <div
+      class="response"
+      style="background-color:{colorbaseres.get(fetchRes.status)};">
+      <span class="status">Code {fetchRes.status}</span>
+      {fetchRes.msg}
     </div>
   {/if}
 </main>

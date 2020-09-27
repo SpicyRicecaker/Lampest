@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Search from './Search.svelte'
 
   interface termType {
     content: string;
@@ -10,9 +11,13 @@
   }
 
   let terms: Array<termType> = [];
+  let features: Array<any> = [
+    { inner: 'Term', style: 'flex: 1' },
+    { inner: 'Definition', style: 'flex: 1' },
+  ];
 
   onMount(async () => {
-    await createTerm();
+    // await createTerm();
   });
 
   const createTerm = async () => {
@@ -20,9 +25,12 @@
     const resTerm = await serverRes.json();
     terms = await resTerm;
   };
+
+  let searchParameters;
 </script>
 
 <style lang="scss">
+  $notGray: #f3f3f3;
   * {
     margin: 0;
     padding: 0;
@@ -37,56 +45,52 @@
   .smallwrap {
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
+    // gap: 0.5rem;
+    box-shadow: 0rem 0.1rem 0.3rem 0.1rem lightgray;
     & > span {
       flex: 1;
       padding: 1rem;
       background-color: white;
-    box-shadow: 0rem .1rem .3rem .1rem lightgray;
+      text-align: center;
+      // box-shadow: 0rem 0.1rem 0.3rem 0.1rem lightgray;
     }
   }
 
   .header {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
+    @extend .smallwrap;
+    box-shadow: none;
     & > span {
+      color: gray;
       flex: 1;
+      padding: 0rem 1rem 1rem;
     }
-    margin: 1rem 1rem 0.5rem;
+    margin: 0rem 1rem;
   }
 
-  /* main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+  .divider {
+    flex: 0;
+    border-left: 0.1rem dotted #cacaca;
+  }
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	} */
+  @media (min-width: 640px) {
+    main {
+      max-width: none;
+    }
+  }
 </style>
 
 <main>
-  <div class="header"><span>Term</span> <span>Definition</span></div>
+  <Search bind:quarryParameters={searchParameters}/>
+  <div class="header">
+    {#each features as feature}<span>{feature.inner}</span>{/each}
+  </div>
   <div class="bigwrap">
     {#each terms as term}
       <div class="smallwrap">
         <span class="tail">{term.content}</span>
+        <div class="divider" />
         <span class="head">{term.description}</span>
       </div>
     {/each}
   </div>
-  <!-- <h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p> -->
 </main>

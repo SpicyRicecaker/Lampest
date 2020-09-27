@@ -25,12 +25,13 @@
     border: none;
     padding: 1rem;
     border-radius: 0;
+    transition: 1s;
     &:hover {
       color: $munchingOrange;
-      background: #fbfbfb;
       cursor: pointer;
     }
     &:active {
+      transition: 0s;
       background: $munchingOrange;
       color: white;
     }

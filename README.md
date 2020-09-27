@@ -9,6 +9,7 @@ lampest.herokuapp.com
 - Material design pogger
 
 ## Todo
-- [ ] Deleteable terms
 - [ ] Add query parameters to terms
+- [ ] Click on terms to reveal more options (and examples)
+  - [ ] Deleteable terms
 - [ ] Quizlet export
