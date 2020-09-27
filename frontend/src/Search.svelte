@@ -1,16 +1,62 @@
 <script lang="ts">
-  export let quarryParameters = {
-    content: null,
-    language: null,
-    category: null,
-    startDate: null,
-    endDate: null,
+  // We're basically planning to dispatch an event when we click enter or search with the needed info to search
+  // Or not, we'll also be doing validation in search
+  // Mandatory library import from svelte
+  import { createEventDispatcher } from 'svelte';
+  // Need to create a dispatcher from that
+  const dispatch = createEventDispatcher();
+
+  let quarryParams = {
+    content: '',
+    language: '',
+    category: '',
+    startDate: '',
+    endDate: '',
   };
 
   let revealParameters = false;
 
-  const queryIt = () => {
-    console.log('hi');
+  const validateParameters = () =>
+    new Promise((resolve, reject) => {
+      // Our new object with good params
+      let cleanParams = {};
+      Object.entries(quarryParams).forEach(([key, value]) => {
+        switch (key) {
+          // Content should be a regex search I think
+          // Blank should be all
+          case 'content': {
+            if (value === '') {
+              cleanParams[key] = '.*';
+            } else {
+              cleanParams[key] = value;
+            }
+            break;
+          }
+          // We should convert these dates into actual dates
+          case 'startDate': //Fallthrough
+          case 'endDate': {
+            if (value !== '') {
+              cleanParams[key] = value;
+            }
+            break;
+          }
+          // For the other params we're looking for exact match
+          default: {
+            if (value !== '') {
+              cleanParams[key] = value;
+            }
+            break;
+          }
+        }
+      });
+      resolve(cleanParams);
+    });
+
+  const initQuarry = async () => {
+    // First validate probably
+    dispatch('quarryRequest', {
+      params: await validateParameters(),
+    });
   };
 </script>
 
@@ -130,7 +176,6 @@
       color: white;
     }
   }
-  
 </style>
 
 <main>
@@ -146,21 +191,27 @@
       size="1"
       type="text"
       placeholder="Quarry..."
-      bind:value={quarryParameters.content} />
+      bind:value={quarryParams.content}
+      on:keydown={(e) => {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          initQuarry();
+        }
+      }} />
   </div>
   {#if revealParameters}
     <input
       type="text"
       placeholder="Lang - en, es, ja"
-      bind:value={quarryParameters.language} />
+      bind:value={quarryParams.language} />
     <input
       type="text"
       placeholder="Category - verb, noun, idiom"
-      bind:value={quarryParameters.category} />
+      bind:value={quarryParams.category} />
     <div class="date-wrapper">
-      <input type="date" bind:value={quarryParameters.startDate} />
-      <input type="date" bind:value={quarryParameters.endDate} />
+      <input type="date" bind:value={quarryParams.startDate} />
+      <input type="date" bind:value={quarryParams.endDate} />
     </div>
-    <button on:click={queryIt}>Search</button>
+    <button on:click={initQuarry}>Search</button>
   {/if}
 </main>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Search from './Search.svelte'
+  import Search from './Search.svelte';
 
   interface termType {
     content: string;
@@ -17,7 +17,7 @@
   ];
 
   onMount(async () => {
-    // await createTerm();
+    await createTerm();
   });
 
   const createTerm = async () => {
@@ -26,7 +26,8 @@
     terms = await resTerm;
   };
 
-  let searchParameters;
+  const handleQuarryRequest = async (event) => {
+  };
 </script>
 
 <style lang="scss">
@@ -80,7 +81,7 @@
 </style>
 
 <main>
-  <Search bind:quarryParameters={searchParameters}/>
+  <Search on:quarryRequest={handleQuarryRequest} />
   <div class="header">
     {#each features as feature}<span>{feature.inner}</span>{/each}
   </div>
