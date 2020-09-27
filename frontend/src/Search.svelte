@@ -55,16 +55,14 @@
   }
 
   .dropdown-label {
+    padding: 1rem;
     transform: rotate(-90deg);
-    display: inline-block;
-    object-fit: contain;
     transition: 1s;
     &:hover {
       transition: 0.2s;
       color: $munchingOrange;
       cursor: pointer;
     }
-    padding: 1rem;
     user-select: none;
   }
 
@@ -132,6 +130,7 @@
       color: white;
     }
   }
+  
 </style>
 
 <main>
@@ -141,7 +140,7 @@
         type="checkbox"
         class="dropdown-check"
         bind:checked={revealParameters} />
-      <span class="dropdown-label">&#x25BC;</span>
+      <div class="dropdown-label">&#x25BC;</div>
     </label>
     <input
       size="1"

@@ -12,6 +12,12 @@
     margin: 0;
     padding: 0;
   }
+  
+  main {
+    position: sticky;
+    z-index: 1;
+  }
+  
   nav {
     display: flex;
     flex-direction: row;
