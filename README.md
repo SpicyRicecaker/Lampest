@@ -9,7 +9,11 @@ lampest.herokuapp.com
 - Material design pogger
 
 ## Todo
-- [ ] Add query parameters to terms
+- [ ] Add query parameters to quarry
+  - [ ] Implement REST API backend
 - [ ] Click on terms to reveal more options (and examples)
   - [ ] Deleteable terms
 - [ ] Quizlet export
+- [ ] Google API
+- [ ] Wiki page
+  - Allow for live editing of webpage content if needed
