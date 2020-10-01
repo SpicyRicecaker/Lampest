@@ -13,6 +13,9 @@ lampest.herokuapp.com
   - [ ] Implement REST API backend
 - [ ] Click on terms to reveal more options (and examples)
   - [ ] Deleteable terms
+- [ ] Imports
+  - [ ] Add list of things added during session
+  - [ ] Add mass import
 - [ ] Quizlet export
 - [ ] Google API
 - [ ] Wiki page

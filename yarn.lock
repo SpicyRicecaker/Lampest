@@ -929,37 +929,37 @@ error-ex@^1.2.0, error-ex@^1.3.1:
     is-arrayish "^0.2.1"
 
 es-abstract@^1.17.0, es-abstract@^1.17.0-next.1, es-abstract@^1.17.5:
-  version "1.17.6"
-  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.17.6.tgz#9142071707857b2cacc7b89ecb670316c3e2d52a"
-  integrity sha512-Fr89bON3WFyUi5EvAeI48QTWX0AyekGgLA8H+c+7fbfCkJwRWRMLd8CQedNEyJuoYYhmtEqY92pgte1FAhBlhw==
+  version "1.17.7"
+  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.17.7.tgz#a4de61b2f66989fc7421676c1cb9787573ace54c"
+  integrity sha512-VBl/gnfcJ7OercKA9MVaegWsBHFjV492syMudcnQZvt/Dw8ezpcOHYZXa/J96O8vx+g4x65YKhxOwDUh63aS5g==
   dependencies:
     es-to-primitive "^1.2.1"
     function-bind "^1.1.1"
     has "^1.0.3"
     has-symbols "^1.0.1"
-    is-callable "^1.2.0"
-    is-regex "^1.1.0"
-    object-inspect "^1.7.0"
+    is-callable "^1.2.2"
+    is-regex "^1.1.1"
+    object-inspect "^1.8.0"
     object-keys "^1.1.1"
-    object.assign "^4.1.0"
+    object.assign "^4.1.1"
     string.prototype.trimend "^1.0.1"
     string.prototype.trimstart "^1.0.1"
 
 es-abstract@^1.18.0-next.0:
-  version "1.18.0-next.0"
-  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.18.0-next.0.tgz#b302834927e624d8e5837ed48224291f2c66e6fc"
-  integrity sha512-elZXTZXKn51hUBdJjSZGYRujuzilgXo8vSPQzjGYXLvSlGiCo8VO8ZGV3kjo9a0WNJJ57hENagwbtlRuHuzkcQ==
+  version "1.18.0-next.1"
+  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.18.0-next.1.tgz#6e3a0a4bda717e5023ab3b8e90bec36108d22c68"
+  integrity sha512-I4UGspA0wpZXWENrdA0uHbnhte683t3qT/1VFH9aX2dA5PPSf6QW5HHXf5HImaqPmjXaVeVk4RGWnaylmV7uAA==
   dependencies:
     es-to-primitive "^1.2.1"
     function-bind "^1.1.1"
     has "^1.0.3"
     has-symbols "^1.0.1"
-    is-callable "^1.2.0"
+    is-callable "^1.2.2"
     is-negative-zero "^2.0.0"
     is-regex "^1.1.1"
     object-inspect "^1.8.0"
     object-keys "^1.1.1"
-    object.assign "^4.1.0"
+    object.assign "^4.1.1"
     string.prototype.trimend "^1.0.1"
     string.prototype.trimstart "^1.0.1"
 
@@ -1559,7 +1559,7 @@ is-binary-path@~2.1.0:
   dependencies:
     binary-extensions "^2.0.0"
 
-is-callable@^1.1.4, is-callable@^1.2.0:
+is-callable@^1.1.4, is-callable@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.2.2.tgz#c7c6715cd22d4ddb48d3e19970223aceabb080d9"
   integrity sha512-dnMqspv5nU3LoewK2N/y7KLtxtakvTuaCsU9FU50/QDmdbHNy/4/JuRtMHqRU22o3q+W89YQndQEeCVwK+3qrA==
@@ -1643,7 +1643,7 @@ is-reference@^1.1.2:
   dependencies:
     "@types/estree" "*"
 
-is-regex@^1.1.0, is-regex@^1.1.1:
+is-regex@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/is-regex/-/is-regex-1.1.1.tgz#c6f98aacc546f6cec5468a07b7b153ab564a57b9"
   integrity sha512-1+QkEcxiLlB7VEyFtyBg94e08OAsvq7FUBgApTq/w2ymCLyKJgDPsybBENVtA7XCQEgEXxKPonG+mvYRxh/LIg==
@@ -2038,7 +2038,7 @@ normalize-url@^4.1.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.0.tgz#453354087e6ca96957bd8f5baf753f5982142129"
   integrity sha512-2s47yzUxdexf1OhyRi4Em83iQk0aPvwTddtFz4hnSSw9dCEsLEGf6SwIO8ss/19S9iBb5sJaOuTvTGDeZI00BQ==
 
-object-inspect@^1.7.0, object-inspect@^1.8.0:
+object-inspect@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.8.0.tgz#df807e5ecf53a609cc6bfe93eac3cc7be5b3a9d0"
   integrity sha512-jLdtEOB112fORuypAyl/50VRVIBIdVQOSUUGQHzJ4xBSbit81zRarz7GThkEFZy1RceYrWYcPcBFPQwHyAc1gA==
@@ -2048,7 +2048,7 @@ object-keys@^1.0.12, object-keys@^1.1.1:
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
-object.assign@^4.1.0:
+object.assign@^4.1.0, object.assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object.assign/-/object.assign-4.1.1.tgz#303867a666cdd41936ecdedfb1f8f3e32a478cdd"
   integrity sha512-VT/cxmx5yaoHSOTSyrCygIDFco+RsibY2NM0a4RdEeY/4KgqezwFtK1yr3U67xYhqJSlASm2pKhLVzPj2lr4bA==
@@ -2874,9 +2874,9 @@ supports-color@^7.0.0, supports-color@^7.1.0:
     has-flag "^4.0.0"
 
 svelte-check@^1.0.0:
-  version "1.0.52"
-  resolved "https://registry.yarnpkg.com/svelte-check/-/svelte-check-1.0.52.tgz#9e78ba23b1cbcb86b08b2a40752b90532f747ded"
-  integrity sha512-/yq9nCxCb6aqBOuHydR17bNmirM6pRiH9Hrv+qt4lozz1+xXkA3cXycsZ0h3vucu8+am9s+lWswpx+pv34OyIw==
+  version "1.0.54"
+  resolved "https://registry.yarnpkg.com/svelte-check/-/svelte-check-1.0.54.tgz#6c1f1661b53e5b25323f0ea02753b435fcee7d55"
+  integrity sha512-bkijpO8FXn+SCRBtTIvLQnVaxAJPxlPRnZdaqheN0Y9IXrzUt+8+XrcQjGCoX7HuQNgcyO8zJZzIcNNqjCTqVw==
   dependencies:
     chalk "^4.0.0"
     chokidar "^3.4.1"
@@ -2889,9 +2889,9 @@ svelte-check@^1.0.0:
     vscode-uri "2.1.2"
 
 svelte-language-server@*:
-  version "0.10.131"
-  resolved "https://registry.yarnpkg.com/svelte-language-server/-/svelte-language-server-0.10.131.tgz#1decb3e5f28eedf9ef62628e6570a7d87f722a2a"
-  integrity sha512-p3JV6SWnPiGcJ2v4N65JSbpT3lyc78OKHJNO8M25/nRAMor+w24GOCBZv6jgu2/a3Nvn0lxaTP8aETVUqWP58g==
+  version "0.10.133"
+  resolved "https://registry.yarnpkg.com/svelte-language-server/-/svelte-language-server-0.10.133.tgz#e5d121a1a27090076e6c6c046b1aeeb45b5d0b93"
+  integrity sha512-pWBMTRzjJR3lqB9ENe9lFmsKfRfh+1gHiLNHiUJKO06TBCCi/zjHJy9/UsYdGVp3oQMkU+JK1iv/B288ELihvg==
   dependencies:
     chokidar "^3.4.1"
     cosmiconfig "^7.0.0"
@@ -2922,9 +2922,9 @@ svelte-preprocess@^4.0.0, svelte-preprocess@~4.3.0:
     strip-indent "^3.0.0"
 
 svelte2tsx@*:
-  version "0.1.119"
-  resolved "https://registry.yarnpkg.com/svelte2tsx/-/svelte2tsx-0.1.119.tgz#9b1322c7429299be068caad95665822f7660953f"
-  integrity sha512-AMbjyqxu2AE7XDiUayeeZoqfZhGB9Kr5VJEylsdF7pHaPtXzpV/OATWkgHW5VgZMKUKL/7YJMKBCLbqfv6az+Q==
+  version "0.1.121"
+  resolved "https://registry.yarnpkg.com/svelte2tsx/-/svelte2tsx-0.1.121.tgz#55fd7e47a7255faf86eed3125ebacbacf73c3d78"
+  integrity sha512-Az3ZEqz1CmtzmY2fw7I8UnXslyjzmuiviLwkOYKZWmjzle4ua9pT8UjdB5gIWQpMM8LIuXDnhD4361N828+GQw==
   dependencies:
     dedent-js "^1.0.1"
     pascal-case "^3.1.1"

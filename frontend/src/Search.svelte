@@ -193,7 +193,7 @@
       placeholder="Quarry..."
       bind:value={quarryParams.content}
       on:keydown={(e) => {
-        if (e.keyCode === 13) {
+        if (e.code === "Enter") {
           e.preventDefault();
           initQuarry();
         }

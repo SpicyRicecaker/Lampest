@@ -17,16 +17,32 @@
   ];
 
   onMount(async () => {
-    await createTerm();
+    await createTerm({});
   });
 
-  const createTerm = async () => {
-    const serverRes = await fetch(`/api/terms`);
-    const resTerm = await serverRes.json();
-    terms = await resTerm;
+  const createTerm = async (body) => {
+    // Define our base query
+    let base = `/api/terms?`;
+    Object.entries(body).forEach(
+      ([key, value]) => (base += `${key}=${value}&`)
+    );
+    // Pop the last element, whether this be the ? or the &
+    const serverRes = await fetch(base.slice(0, -1));
+    switch (await serverRes.status) {
+      case 200: {
+        const resTerm = await serverRes.json();
+        terms = await resTerm;
+        break;
+      }
+      default: {
+        console.log('error');
+      }
+    }
   };
 
+  // When we need to send a quarry request
   const handleQuarryRequest = async (event) => {
+    createTerm(event.detail.params);
   };
 </script>
 

@@ -22,6 +22,7 @@ const router = express.Router();
 
 // Gets all terms
 router.get('/', (req, res) => {
+console.log(req.query);
   termColl()
     .then((data) => data.find({}))
     .then((data) => data.toArray())
