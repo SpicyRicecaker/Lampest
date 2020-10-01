@@ -8,6 +8,7 @@
     date: string;
     category: string;
     example: string;
+    lang: string;
   }
 
   let terms: Array<termType> = [];

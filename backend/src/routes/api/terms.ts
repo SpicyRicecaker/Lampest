@@ -22,9 +22,26 @@ const router = express.Router();
 
 // Gets all terms
 router.get('/', (req, res) => {
-console.log(req.query);
+  const template: any = {};
+  Object.entries(req.query).forEach(([key, value]) => {
+    // Print out template at this point
+    switch (key) {
+      case 'startDate': {
+        template[key] = `{$lt ${value}}`;
+        break;
+      }
+      case 'endDate': {
+        template[key] = `{$gt ${value}}`;
+        break;
+      }
+      default: {
+        template[key] = new RegExp(`${value}`, 'ig');
+        break;
+      }
+    }
+  });
   termColl()
-    .then((data) => data.find({}))
+    .then((data) => data.find(template))
     .then((data) => data.toArray())
     .then((data: any) => res.status(200).json(data))
     .catch((err: any) => {
