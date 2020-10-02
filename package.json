@@ -8,5 +8,6 @@
   "scripts": {
     "start": "node backend/dist/index.js",
     "build": "yarn --cwd backend build && yarn --cwd frontend build"
-  }
+  },
+  "version": "0.0.0"
 }
