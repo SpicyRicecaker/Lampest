@@ -9,40 +9,44 @@
   let categoryList: string = '';
 
   let startDate: string = '09/22/2020';
-  let endDate: string = new Date().toString();
+  let endDate: string = '09/22/2120';
+  let mainBody: string = '';
+
+  // interface mongoParam {
+  //   $or: [{ content: string }, { description: string }];
+  //   category: string[];
+  //   date: { $gte: Date; $lte: Date };
+  // }
+  let mongoParams = {
+    $or: [
+      { content: { $regex: '', $options: 'i' } },
+      { description: { $regex: '', $options: 'i' } },
+    ],
+    category: [''],
+    date: { $gte: new Date(startDate), $lte: new Date(endDate) },
+  };
 
   // Matches category string to category array
   $: {
     mongoParams.category = categoryList.split(',');
   }
 
-  // Matches greater than string to date
+  // Matches greater than string to start date
   $: {
-    mongoParams.date.$gte.$date = new Date(startDate);
+    mongoParams.date.$gte = new Date(startDate);
   }
 
-  // Matches less than string to date
+  // Matches less than string to end date
   $: {
-    mongoParams.date.$lte.$date = new Date(endDate);
+    mongoParams.date.$lte = new Date(endDate);
   }
 
-  // Matches description to content
+  // Matches description and content to main body regexed, not matching caps either
   $: {
-    mongoParams.$or[1].description = mongoParams.$or[0].content;
+    // Content
+    mongoParams.$or[0].content.$regex = mainBody;
+    mongoParams.$or[1].description.$regex = mainBody;
   }
-
-  let mongoParams = {
-    $or: [{ content: '' }, { description: '' }],
-    category: [],
-    date: {
-      $gte: {
-        $date:new Date()
-      },
-      $lte: {
-        $date:new Date()
-      }
-    },
-  };
 
   const mainBodyComponent = ['content', 'description'];
 
@@ -195,7 +199,7 @@
       size="1"
       type="text"
       placeholder="Quarry..."
-      bind:value={mongoParams.$or[0].content}
+      bind:value={mainBody}
       on:keydown={(e) => {
         if (e.code === 'Enter') {
           e.preventDefault();

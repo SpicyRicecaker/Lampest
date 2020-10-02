@@ -7,11 +7,11 @@ interface termType {
   content: string;
   description: string;
   date: Date;
-  category: string;
+  category: string[];
   example: string;
 }
 
-const termColl = async (): Promise<Collection<termType>> => {
+const termColl = async (): Promise<Collection<any>> => {
   const client = await langpestDB.get();
   const database = await client.db();
   const terms = await database.collection('terms');
@@ -34,14 +34,21 @@ router.get('/', async (req, res) => {
 
 // Gets specific term
 router.get('/search', async (req, res) => {
+  // Code inspired by https://mariusschulz.com/blog/deserializing-json-strings-as-javascript-date-objects
   try {
-    const query = await JSON.parse(req.query.q as any)
+    // const dateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
+    const dateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
+
+    const reviver = (key: any, value: any) => {
+      return typeof value === 'string' && dateFormat.test(value)
+        ? new Date(value)
+        : value;
+    };
+
+    const query = JSON.parse(req.query.q as string, reviver);
     const collection = await termColl();
-    const cursor = await collection.find(req.query.q as any);
-    console.log(await req.query.q);
-    console.log(await JSON.parse(req.query.q as any));
+    const cursor = await collection.find(query);
     const arr = await cursor.toArray();
-    console.log(arr);
     return await res.status(200).json(arr);
   } catch (err) {
     return res.status(500).json({ msg: 'Internal Server Error' });
