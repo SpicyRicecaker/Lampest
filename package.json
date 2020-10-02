@@ -7,7 +7,7 @@
   "main": "backend/dist/src/index.js",
   "scripts": {
     "start": "node backend/dist/index.js",
-    "build": "yarn --cwd backend build && yarn --cwd frontend build"
-  },
-  "version": "0.0.0"
+    "build": "yarn --cwd backend build && yarn --cwd frontend build",
+    "dev": "yarn --cwd backend dev && yarn --cwd frontend dev"
+  }
 }

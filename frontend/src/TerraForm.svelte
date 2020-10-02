@@ -4,16 +4,22 @@
   interface termType {
     content: string;
     description: string;
-    date: string;
-    category: string;
+    date: Date;
+    category: Array<string>;
     example: string;
+  }
+  
+  let categoryList:string = '';
+  
+  $: {
+    tempTerm.category = categoryList.split(',');
   }
 
   const tempTerm: termType = {
     content: '',
     description: '',
-    date: '',
-    category: '',
+    date: new Date(),
+    category: [],
     example: '',
   };
 
@@ -22,7 +28,7 @@
   const getTerm = (): Promise<termType> => {
     return new Promise((resolve, reject) => {
       // Create object
-      tempTerm.date = new Date().toString();
+      tempTerm.date = new Date();
       // Send it as a fetch json request
       resolve(tempTerm);
     });
@@ -172,7 +178,7 @@ u}
     type="text"
     placeholder="Definition"
     bind:value={tempTerm.description} />
-  <input type="text" placeholder="Tag" bind:value={tempTerm.category} />
+  <input type="text" placeholder="Tag" bind:value={categoryList} />
   <input type="text" placeholder="Example" bind:value={tempTerm.example} />
   <button on:click={createTerm}>Add</button>
   {#if fetchRes.status !== 99}

@@ -6,7 +6,7 @@ import * as langpestDB from '../../db';
 interface termType {
   content: string;
   description: string;
-  date: string;
+  date: Date;
   category: string;
   example: string;
 }
@@ -21,40 +21,38 @@ const termColl = async (): Promise<Collection<termType>> => {
 const router = express.Router();
 
 // Gets all terms
-router.get('/', (req, res) => {
-  const template: any = {};
-  Object.entries(req.query).forEach(([key, value]) => {
-    // Print out template at this point
-    switch (key) {
-      case 'startDate': {
-        template[key] = `{$lt ${value}}`;
-        break;
-      }
-      case 'endDate': {
-        template[key] = `{$gt ${value}}`;
-        break;
-      }
-      default: {
-        template[key] = new RegExp(`${value}`, 'ig');
-        break;
-      }
-    }
-  });
-  termColl()
-    .then((data) => data.find(template))
-    .then((data) => data.toArray())
-    .then((data: any) => res.status(200).json(data))
-    .catch((err: any) => {
-      console.log(err);
-      res.status(500).json({ msg: 'Internal server error sorry' });
-    });
+router.get('/', async (req, res) => {
+  try {
+    const collection = await termColl();
+    const cursor = await collection.find();
+    const arr = await cursor.toArray();
+    return await res.status(200).json(arr);
+  } catch (err) {
+    return res.status(500).json({ msg: 'Internal Server Error' });
+  }
+});
+
+// Gets specific term
+router.get('/search', async (req, res) => {
+  try {
+    const query = await JSON.parse(req.query.q as any)
+    const collection = await termColl();
+    const cursor = await collection.find(req.query.q as any);
+    console.log(await req.query.q);
+    console.log(await JSON.parse(req.query.q as any));
+    const arr = await cursor.toArray();
+    console.log(arr);
+    return await res.status(200).json(arr);
+  } catch (err) {
+    return res.status(500).json({ msg: 'Internal Server Error' });
+  }
 });
 
 // Return a specific task with specific content
 router.get('/:term', async (req, res) => {
   try {
     const collection = await termColl();
-    const cursor = await collection.find({ content: req.params.content });
+    const cursor = await collection.find(req.query.q as any);
     if (await cursor.hasNext()) {
       return res.status(200).json(await cursor.next());
     }
@@ -108,7 +106,7 @@ router.post('/:term', async (req, res) => {
     const newTerm: termType = {
       content: req.body.content,
       description: req.body.description,
-      date: req.body.date,
+      date: await new Date(req.body.date),
       category: req.body.category,
       example: req.body.example,
     };

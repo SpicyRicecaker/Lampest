@@ -6,50 +6,54 @@
   // Need to create a dispatcher from that
   const dispatch = createEventDispatcher();
 
-  let quarryParams = {
-    content: '',
-    language: '',
-    category: '',
-    startDate: '',
-    endDate: '',
+  let categoryList: string = '';
+
+  let startDate: string = '09/22/2020';
+  let endDate: string = new Date().toString();
+
+  // Matches category string to category array
+  $: {
+    mongoParams.category = categoryList.split(',');
+  }
+
+  // Matches greater than string to date
+  $: {
+    mongoParams.date.$gte.$date = new Date(startDate);
+  }
+
+  // Matches less than string to date
+  $: {
+    mongoParams.date.$lte.$date = new Date(endDate);
+  }
+
+  // Matches description to content
+  $: {
+    mongoParams.$or[1].description = mongoParams.$or[0].content;
+  }
+
+  let mongoParams = {
+    $or: [{ content: '' }, { description: '' }],
+    category: [],
+    date: {
+      $gte: {
+        $date:new Date()
+      },
+      $lte: {
+        $date:new Date()
+      }
+    },
   };
+
+  const mainBodyComponent = ['content', 'description'];
 
   let revealParameters = false;
 
-  const validateParameters = () =>
+  const validateParameters = (): Promise<string> =>
     new Promise((resolve, reject) => {
-      // Our new object with good params
-      let cleanParams = {};
-      Object.entries(quarryParams).forEach(([key, value]) => {
-        switch (key) {
-          // Content should be a regex search I think
-          // Blank should be all
-          case 'content': {
-            if (value === '') {
-              cleanParams[key] = '.*';
-            } else {
-              cleanParams[key] = value;
-            }
-            break;
-          }
-          // We should convert these dates into actual dates
-          case 'startDate': //Fallthrough
-          case 'endDate': {
-            if (value !== '') {
-              cleanParams[key] = value;
-            }
-            break;
-          }
-          // For the other params we're looking for exact match
-          default: {
-            if (value !== '') {
-              cleanParams[key] = value;
-            }
-            break;
-          }
-        }
-      });
-      resolve(cleanParams);
+      // Our new query object for mongodb
+      // Go through our mongoParams
+      console.log(JSON.stringify(mongoParams));
+      resolve(`/api/terms/search?q=${JSON.stringify(mongoParams)}`);
     });
 
   const initQuarry = async () => {
@@ -191,26 +195,26 @@
       size="1"
       type="text"
       placeholder="Quarry..."
-      bind:value={quarryParams.content}
+      bind:value={mongoParams.$or[0].content}
       on:keydown={(e) => {
-        if (e.code === "Enter") {
+        if (e.code === 'Enter') {
           e.preventDefault();
           initQuarry();
         }
       }} />
   </div>
   {#if revealParameters}
-    <input
+    <!-- <input
       type="text"
       placeholder="Lang - en, es, ja"
-      bind:value={quarryParams.language} />
+      bind:value={mongoParams.language} /> -->
     <input
       type="text"
-      placeholder="Category - verb, noun, idiom"
-      bind:value={quarryParams.category} />
+      placeholder="Category - en, ja, es, verb, noun"
+      bind:value={categoryList} />
     <div class="date-wrapper">
-      <input type="date" bind:value={quarryParams.startDate} />
-      <input type="date" bind:value={quarryParams.endDate} />
+      <input type="date" bind:value={startDate} />
+      <input type="date" bind:value={endDate} />
     </div>
     <button on:click={initQuarry}>Search</button>
   {/if}
