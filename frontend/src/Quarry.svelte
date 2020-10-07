@@ -18,7 +18,7 @@
   }
   let reveal: string = '';
 
-  let terms: Array<termType> = [];
+  // let terms: Array<termType> = [];
   let features: Array<any> = [
     { inner: 'Term', style: 'flex: 1' },
     { inner: 'Definition', style: 'flex: 1' },
@@ -56,6 +56,8 @@
       }
     }
   };
+
+  let quizletVisible = false;
 
   // const updateTerm = async (newTerm) => {
 
@@ -211,4 +213,15 @@
       </div>
     {/each}
   </div>
+  <!-- <button on:click={() => (quizletVisible = !quizletVisible)}>export to quizlet</button> -->
+  <button on:click={()=>quizletVisible = !quizletVisible}>export to quizlet (scuffed)</button>
+  {#if quizletVisible}
+    <div>
+      <button on:click={() => (quizletVisible = !quizletVisible)}>hide</button>
+      <br />
+      {#each svelteTerms as st}
+        {st.term.content}<br />{st.term.description}
+      {/each}
+    </div>
+  {/if}
 </main>
