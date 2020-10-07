@@ -24,7 +24,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const collection = await termColl();
-    const cursor = await collection.find();
+    const cursor = await collection.find().limit(50);
     const arr = await cursor.toArray();
     return await res.status(200).json(arr);
   } catch (err) {

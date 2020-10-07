@@ -218,9 +218,9 @@
   {#if quizletVisible}
     <div>
       <button on:click={() => (quizletVisible = !quizletVisible)}>hide</button>
-      <br />
       {#each svelteTerms as st}
-        {st.term.content}<br />{st.term.description}<br/>
+        <div>{st.term.content}</div>
+        <div>{st.term.description}</div>
       {/each}
     </div>
   {/if}
