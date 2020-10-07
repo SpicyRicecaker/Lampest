@@ -49,7 +49,25 @@
       case 200: {
         const resTerm = await serverRes.json();
         await updateSvelteTerms(await resTerm);
-        console.log(svelteTerms);
+        break;
+      }
+      default: {
+        console.log('error');
+      }
+    }
+  };
+
+  // const updateTerm = async (newTerm) => {
+
+  // }
+
+  const removeTerm = async (st) => {
+    console.log(st);
+    const serverRes = await fetch(`/api/terms/${st.content}/`, {
+      method: 'DELETE',
+    });
+    switch (await serverRes.status) {
+      case 200: {
         break;
       }
       default: {
@@ -60,7 +78,6 @@
 
   // When we need to send a quarry request
   const handleQuarryRequest = async (event) => {
-    console.log(event.detail.params);
     createTerm(event.detail.params);
   };
 
@@ -180,8 +197,9 @@
             {/each}
             <div
               class="delete-button"
-              on:click|stopPropagation={() => {
+              on:click|stopPropagation={async () => {
                 // Update the database
+                await removeTerm(st.term);
                 // We only need to splice terms
                 svelteTerms.splice(i, 1);
                 svelteTerms = svelteTerms;

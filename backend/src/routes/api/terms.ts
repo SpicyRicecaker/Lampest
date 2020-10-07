@@ -135,7 +135,7 @@ router.delete('/:term', async (req, res) => {
   try {
     const collection = await termColl();
     const deleteResult = await collection.deleteOne({
-      content: req.params.content,
+      content: req.params.term,
     });
     if (deleteResult.deletedCount === 0) {
       return res.status(400).json({ msg: 'Term was not found' });

@@ -9,8 +9,8 @@
 
   let categoryList: string = '';
 
-  let startDate: string = '09/22/2020';
-  let endDate: string = '09/22/2120';
+  let startDate: string = '';
+  let endDate: string = '';
   let mainBody: string = '';
 
   // interface mongoParam {
@@ -18,28 +18,61 @@
   //   category: string[];
   //   date: { $gte: Date; $lte: Date };
   // }
-  let mongoParams = {
+  let mongoParams: any = {
     $or: [
       { content: { $regex: '', $options: 'i' } },
       { description: { $regex: '', $options: 'i' } },
     ],
-    category: [''],
-    date: { $gte: new Date(startDate), $lte: new Date(endDate) },
   };
 
   // Matches category string to category array
   $: {
-    mongoParams.category = categoryList.split(',');
+    // If we've just reacted to a tangible change
+    if (categoryList.length !== 0) {
+      // Spread the new parameters in!!
+      mongoParams = {
+        ...mongoParams,
+        category: {
+          $all: categoryList.split(','),
+        },
+      };
+    } else {
+      // Otherwise, if we've just reacted to the category being cleared, we just delete it!
+      delete mongoParams.category;
+    }
   }
 
+  // We can add regex date checking later
   // Matches greater than string to start date
-  $: {
-    mongoParams.date.$gte = new Date(startDate);
-  }
 
   // Matches less than string to end date
   $: {
-    mongoParams.date.$lte = new Date(endDate);
+    if (endDate.length !== 0) {
+      mongoParams = {
+        ...mongoParams,
+        date: {
+          ...mongoParams.date,
+          $lte: new Date(endDate),
+        },
+      };
+    } else if (startDate.length === 0) {
+      delete mongoParams.date;
+    }
+  }
+
+  $: {
+    // Should be regex checked, but I'm lazy for now
+    if (startDate.length !== 0) {
+      mongoParams = {
+        ...mongoParams,
+        date: {
+          ...mongoParams.date,
+          $gte: new Date(startDate),
+        },
+      };
+    } else if (endDate.length === 0) {
+      delete mongoParams.date;
+    }
   }
 
   // Matches description and content to main body regexed, not matching caps either
@@ -57,7 +90,6 @@
     new Promise((resolve, reject) => {
       // Our new query object for mongodb
       // Go through our mongoParams
-      console.log(JSON.stringify(mongoParams));
       resolve(`/api/terms/search?q=${JSON.stringify(mongoParams)}`);
     });
 
@@ -80,7 +112,16 @@
     margin: 1rem;
     display: flex;
     flex-direction: column;
+  }
+
+  .mini-wrapper {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
+    &:first-child {
+      margin-top: 1rem;
+    }
   }
 
   .searchbar {
@@ -188,32 +229,33 @@
 </style>
 
 <main>
-  <div class="searchbar">
-    <label class="dropdown-wrapper">
+  <div class="wrapper">
+    <div class="searchbar">
+      <label class="dropdown-wrapper">
+        <input
+          type="checkbox"
+          class="dropdown-check"
+          bind:checked={revealParameters} />
+        <div class="dropdown-label">&#x25BC;</div>
+      </label>
       <input
-        type="checkbox"
-        class="dropdown-check"
-        bind:checked={revealParameters} />
-      <div class="dropdown-label">&#x25BC;</div>
-    </label>
-    <input
-      size="1"
-      type="text"
-      placeholder="Quarry..."
-      bind:value={mainBody}
-      on:keydown={(e) => {
-        if (e.code === 'Enter') {
-          e.preventDefault();
-          initQuarry();
-        }
-      }} />
-  </div>
-  {#if revealParameters}
-    <!-- <input
+        size="1"
+        type="text"
+        placeholder="Quarry..."
+        bind:value={mainBody}
+        on:keydown={(e) => {
+          if (e.code === 'Enter') {
+            e.preventDefault();
+            initQuarry();
+          }
+        }} />
+    </div>
+    {#if revealParameters}
+      <!-- <input
       type="text"
       placeholder="Lang - en, es, ja"
       bind:value={mongoParams.language} /> -->
-    <div transition:slide|local>
+      <div transition:slide|local class="mini-wrapper">
     <input
       type="text"
       placeholder="Category - en, ja, es, verb, noun"
@@ -223,6 +265,7 @@
       <input type="date" bind:value={endDate} />
     </div>
     <button on:click={initQuarry}>Search</button>
-      </div>
-  {/if}
+    </div>
+    {/if}
+  </div>
 </main>
