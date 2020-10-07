@@ -3,6 +3,7 @@
   // Or not, we'll also be doing validation in search
   // Mandatory library import from svelte
   import { createEventDispatcher } from 'svelte';
+  import { slide } from 'svelte/transition';
   // Need to create a dispatcher from that
   const dispatch = createEventDispatcher();
 
@@ -212,6 +213,7 @@
       type="text"
       placeholder="Lang - en, es, ja"
       bind:value={mongoParams.language} /> -->
+    <div transition:slide|local>
     <input
       type="text"
       placeholder="Category - en, ja, es, verb, noun"
@@ -221,5 +223,6 @@
       <input type="date" bind:value={endDate} />
     </div>
     <button on:click={initQuarry}>Search</button>
+      </div>
   {/if}
 </main>

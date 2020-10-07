@@ -1,6 +1,7 @@
 <script lang="ts">
   import { view } from './stores';
   export let visible = false;
+  import { slide } from 'svelte/transition';
 </script>
 
 <style lang="scss">
@@ -110,7 +111,9 @@
       class="dropdown"
       on:click={() => {
         visible = false;
-      }}>
+      }}
+      transition:slide|local
+      >
       <button
         on:click={() => {
           $view = 'add-terms';
